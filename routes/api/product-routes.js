@@ -35,7 +35,6 @@ router.get('/:id', (req, res) => {
     res.status(500).json(err);
   }
 
-
   // be sure to include its associated Category and Tag data
 });
 
