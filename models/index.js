@@ -4,8 +4,6 @@ const Category = require('./Category');
 const Tag = require('./Tag');
 const ProductTag = require('./ProductTag');
 
-//only 1 cascade from the next 2
-
 // Products belongsTo Category
 Product.belongsTo(Category, {
   foreignKey: 'category_id',
@@ -15,8 +13,6 @@ Product.belongsTo(Category, {
 Category.hasMany(Product, {
   foreignKey: 'category_id',
 })
-
-//add foreign keys to both below
 
 // Products belongToMany Tags (through ProductTag)
 Product.belongsToMany(Tag, {
