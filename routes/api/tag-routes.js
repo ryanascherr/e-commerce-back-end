@@ -6,21 +6,22 @@ const { Tag, Product, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all tags
   try {
-    const tagData = await Tag.findAll();
+    // be sure to include its associated Product data
+    const tagData = await Tag.findAll({
+      include: [{ model: Product }],
+    });
     res.status(200).json(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
-
-  // be sure to include its associated Product data
 });
 
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   try {
     const tagData = await Tag.findByPk(req.params.id, {
-      // JOIN with travellers, using the Trip through table
-      include: [{ model: Product, through: ProductTag, as: 'tag_products' }]
+      // be sure to include its associated Product data
+      include: [{ model: Product }],
     });
 
     if (!tagData) {
@@ -32,8 +33,6 @@ router.get('/:id', (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-
-  // be sure to include its associated Product data
 });
 
 router.post('/', (req, res) => {
